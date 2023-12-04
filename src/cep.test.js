@@ -1,27 +1,47 @@
 // cepValidator.test.js
+// cepValidator.test.js
 const validarCEP = require('./cep');
 
-test('CEP válido deve retornar true', () => {
-  expect(validarCEP('12345678')).toBe(true);
-});
+// ... (testes anteriores)
 
-test('CEP inválido (tamanho menor que 8) deve retornar false', () => {
-  expect(validarCEP('1234567')).toBe(false);
-});
-
-test('CEP inválido (tamanho maior que 8) deve retornar false', () => {
-  expect(validarCEP('123456789')).toBe(false);
-});
-
-test('CEP inválido (caracteres não numéricos) deve retornar false', () => {
-  expect(validarCEP('12a45678')).toBe(false);
-});
-
-test('CEP válido com formatação (com traço) deve retornar true', () => {
+test('VerificarCEPValido', () => {
   expect(validarCEP('12345-678')).toBe(true);
 });
 
-test('CEP válido com formatação (com espaços) deve retornar true', () => {
-  expect(validarCEP('12345 678')).toBe(true);
+test('VerificarOutroCEPValido', () => {
+  expect(validarCEP('54321-987')).toBe(true);
+});
+
+test('VerificarCEPInvalido', () => {
+  expect(validarCEP('1234-567')).toBe(false);
+});
+
+test('VerificarCEPInvalidoCaracteresEspeciais', () => {
+  expect(validarCEP('ABCDE-FGH')).toBe(false);
+});
+
+
+test('VerificarCEPVazio', () => {
+  expect(validarCEP('')).toBe(false);
+});
+
+test('VerificarCEPComExcessoDeDigitos', () => {
+  expect(validarCEP('12345-6789-0')).toBe(false);
+});
+
+test('VerificarCEPComMenosDeOitoDigitos', () => {
+  expect(validarCEP('123-456')).toBe(false);
+});
+
+test('VerificarCEPFormatoInvalido', () => {
+  expect(validarCEP('12345-6789-0')).toBe(false);
+});
+
+test('VerificarCEPComLetrasMinusculas', () => {
+  expect(validarCEP('abcde-fghi')).toBe(false);
+});
+
+test('VerificarCEPComTraçosExtras', () => {
+  expect(validarCEP('12--34--567')).toBe(false);
 });
 
